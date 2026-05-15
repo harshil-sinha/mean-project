@@ -1,0 +1,19 @@
+<mat-card>
+    <h2>Login</h2>
+
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username"/>
+
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password"/>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="submit() [disabled]="loading" ">
+            login
+
+        </button>
+        
+    </form>
+</mat-card>
