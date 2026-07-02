@@ -58,3 +58,42 @@ export const getStats = async (
     }
     res.status(200).json(stats);
 }
+
+export const createUser = async (req: Request, res: Response) => {
+    const newUser = { 
+        ...req.body, 
+        id: uuidv4(),
+        createdAt: new Date().toISOString()
+    };
+    users.push(newUser);
+    res.status(201).json(newUser);
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+    const user = users.find(u => u.id === req.params.id);
+    if (user) {
+        res.status(200).json(user);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+    const index = users.findIndex(u => u.id === req.params.id);
+    if (index !== -1) {
+        users[index] = { ...users[index], ...req.body };
+        res.status(200).json(users[index]);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+    const index = users.findIndex(u => u.id === req.params.id);
+    if (index !== -1) {
+        users.splice(index, 1);
+        res.status(204).send();
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+};
